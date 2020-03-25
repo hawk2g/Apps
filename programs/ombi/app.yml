@@ -14,7 +14,7 @@
       set_fact:
         int1: '3579'
         ext1: '3579'
-        image: 'tlinuxserver/ombi'
+        image: 'linuxserver/ombi'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Mandatory Core Role'
@@ -27,7 +27,7 @@
           traefik.frontend.auth.forward.address: '{{gauth}}'
           traefik.enable: 'true'
           traefik.port: '{{int1}}'
-          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain}},{{tldset}}'
+          traefik.frontend.rule: 'Host:T1-{{pgrole}}.{{domain}}'
 
     - name: 'Setting PG Volumes'
       set_fact:
@@ -51,7 +51,7 @@
         capabilities:
           - SYS_PTRACE
         published_ports:
-          - '{{serverports}}{{ext1}}:{{int1}}'
+          - '127.0.0.1:{{ext1}}:{{int1}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
         restart_policy: unless-stopped
